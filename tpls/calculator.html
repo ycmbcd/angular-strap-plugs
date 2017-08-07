@@ -1,0 +1,27 @@
+<div class="container" ng-controller="calculatorCtrl">
+	<div class="panel panel-default">
+		<div class="panel-footer">
+		 <button class="btn btn-danger btn-block" ui-sref="login"> 返 回 </button>
+		</div>
+		<div class="panel-body">
+			<select ng-model="type">
+				<option value="active">动态响应模式</option>
+				<option value="static">手动点击模式</option>
+			</select>
+			<input type="text" ng-model="num1">
+
+			<select ng-model="operator">
+				<option value="1">+</option>
+				<option value="2">-</option>
+				<option value="3">*</option>
+				<option value="4">/</option>
+			</select>
+
+			<input type="text" ng-model="num2">
+
+			<button id="bResult" type="button" ng-click="calculate()">=</button>
+
+			<span>{{result}}</span>
+		</div>
+	</div>
+</div>

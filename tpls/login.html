@@ -1,0 +1,86 @@
+<div ng-controller="siteCtrl">
+	<header role="banner">
+		<nav role="navigation" class="navbar navbar-static-top navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a href="index.html" class="navbar-brand"><img id="logo" src="https://ycmbcd.github.io/angular-strap-plugs/img/logo.png" alt="qrcode" width="40"></a>
+				</div>
+				<div class="collapse navbar-collapse" id="navbar-collapse">
+					<ul class="nav navbar-nav">
+						<li class="active"><a href="index.html"><i class="icon fa fa-home fa-fw"></i>Home</a></li>
+						<li class="pointer" ui-sref="calculator"><a><i class="icon fa fa-calculator fa-fw"></i>计算器</a></li>
+						<li class="pointer" ui-sref="plugs"><a><i class="icon fa fa-cube fa-fw"></i>Angular-Strap-plugs Demo</a></li>
+						<li class="pointer"><a href="https://github.com/ycmbcd/angular-strap-plugs"><i class="icon fa fa-github fa-fw"></i>Angular-strap-plugs's GitHub</a></li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+	</header>
+
+	<main role="main">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+			<div class="col-lg-4 col-md-4 col-sm-5 col-xs-12 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 pull-right">
+				<div class="panel panel-default mt20">
+					<div class="panel-body">
+						<form name="login_form" novalidate>
+							<h3 class="text-center">登 &nbsp;&nbsp; 录</h3>
+							<div class="input-group login_fix">
+								<span class="input-group-addon"><i class="fa fa-user fa-fw"></i></span>
+								<input 
+									name="u_id" 
+									ng-model="u_id" 
+									type="text" 
+									ng-pattern="/^1[0-9]{10}|\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/"
+									required 
+									placeholder="手机号 / 邮箱号" 
+									class="form-control">
+
+							</div>
+							<span class="red fa fa-info-circle f13 login_fix" ng-show="login_form.u_id.$dirty && login_form.u_id.$error.required">&nbsp;必填项</span>
+							<span class="red fa fa-info-circle f13 login_fix" ng-show="login_form.u_id.$error.pattern">&nbsp;账号格式不正确</span>
+							<!-- /ID -->
+
+							<div class="input-group login_fix mt10">
+                                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                                <input 
+                                    ng-model="u_pwd" 
+                                    name="u_pwd" 
+                                    ng-minlength="6" 
+                                    ng-maxlength="50"
+                                    required
+                                    type="password" 
+                                    class="form-control" 
+                                    placeholder="请输入密码">
+                            </div>
+                            <span class="red fa fa-info-circle f13 login_fix" ng-show="login_form.u_pwd.$dirty && login_form.u_pwd.$error.required">&nbsp;必填项</span>
+                            <span class="red fa fa-info-circle f13 login_fix" ng-show="login_form.u_pwd.$error.minlength || login_form.u_pwd.$error.maxlength">&nbsp;最少为6位</span>
+							<!-- /PWD -->
+							<div class="form-group login_fix mt10">
+								<button 
+									class="btn btn-primary btn-block"
+									ng-disabled="login_form.u_pwd.$invalid || login_form.u_id.$invalid">
+									立刻登录
+								</button>
+								<span><a ng-click="tab_login=1" data-animation="am-fade-and-slide-top" data-template-url="modal/forgot_id.html" bs-modal="modal" data-toggle="modal">忘了密码？</a></span>
+								<span><a ng-click="tab_login=1" data-animation="am-fade-and-slide-top" data-template-url="modal/reg_id.html" bs-modal="modal" class="pull-right">注册新账号</a></span>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-7 col-md-7 col-sm-6 pull-left">
+				<img src="https://ycmbcd.github.io/angular-strap-plugs/img/bg.png" width="100%" alt="info">
+			</div>
+			<div class="clearfix"></div>
+		</div> 
+	</main>
+
+	<footer role="contentinfo">
+		<div class="navbar-fixed-bottom bg_op"><small>Copyright &copy;Company Namet</small></div>
+	</footer>
+</div>

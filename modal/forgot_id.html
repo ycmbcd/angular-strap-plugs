@@ -1,0 +1,156 @@
+<div class="modal" tabindex="-1" ng-controller="siteCtrl">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" ng-click="$hide()"><i class="fa fa-fw fa-window-close"></i></button>
+                <h4 class="modal-title">
+                    <!-- 注册 tabs -->
+                    <ul class="nav nav-tabs pointer" ng-class="$navClass">
+                        <li ng-class="{'active':tab_login==1}" >
+                            <a role="tab" ng-click="tab_login=1">手机找回</a>
+                        </li>
+                        <li ng-class="{'active':tab_login==2}">
+                            <a role="tab" ng-click="tab_login=2">邮箱找回</a>
+                        </li>
+                    </ul>
+                </h4>
+
+            </div>
+            <div class="modal-body">
+                <div class="tab-content">
+                    <!-- 手机找回 -->
+                    <form  name="forgot1_form" novalidate>
+                        <div ng-show="tab_login==1">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone fa-fw"></i></span>
+                                <input 
+                                    ng-model="forgot_phone"
+                                    name="forgot_phone" 
+                                    ng-pattern="/^1[3|5][0-9]\d{4,8}$/"
+                                    ng-minlength="11" 
+                                    ng-maxlength="11"
+                                    required
+                                    type="text" 
+                                    class="form-control" 
+                                    placeholder="手机号">
+                            </div>
+                            <span class="red fa fa-info-circle f13" ng-show="forgot1_form.forgot_phone.$dirty && forgot1_form.forgot_phone.$error.required">&nbsp;必填项</span>
+                            <span class="red fa fa-info-circle f13" ng-show="forgot1_form.forgot_phone.$error.minlength || forgot1_form.forgot_phone.$error.pattern">&nbsp;手机格式不准确</span>
+
+                            <div class="input-group mt10">
+                                <input 
+                                    ng-model="forgot_phone_code"
+                                    name="forgot_phone_code" 
+                                    required
+                                    type="number" 
+                                    class="form-control" 
+                                    ng-minlength="4" 
+                                    ng-maxlength="4"
+                                    placeholder="获取验证码">
+                                <span class="input-group-btn">
+                                    <!-- 获取验证码按钮 -->
+                                    <button 
+                                        ng-click="get_phone_code()"
+                                        class="btn btn-primary" 
+                                        type="button"
+                                        ng-disabled="forgot1_form.forgot_phone.$invalid || !can_get_phone_code">{{get_phone_code_txt}}</button>
+                                </span>
+                            </div>
+                            <span class="red fa fa-info-circle f13" ng-show="forgot1_form.forgot_phone_code.$error.minlength || forgot1_form.forgot_phone_code.$error.maxlength">&nbsp;请输入4位验证码</span>
+
+                            <div class="mt20">
+                                <button 
+                                    type="button" 
+                                    class="btn btn-primary btn-block" 
+                                    ng-click="forgot1_submit()"
+                                    ng-disabled="forgot1_form.forgot_phone.$invalid || forgot1_form.forgot_phone_code.$invalid || forgot1_form.forgot_phone_pwd.$invalid">&nbsp;确 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 定&nbsp;</button>
+                            </div>
+
+                            <div class="input-group mt10">
+                                <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                                <input 
+                                    ng-model="forgot_phone_pwd" 
+                                    name="forgot_phone_pwd" 
+                                    ng-minlength="6" 
+                                    ng-maxlength="50"
+                                    required
+                                    type="password" 
+                                    class="form-control" 
+                                    placeholder="请输入密码">
+                            </div>
+                            <span class="red fa fa-info-circle f13" ng-show="forgot1_form.forgot_phone_pwd.$dirty && forgot1_form.forgot_phone_pwd.$error.required">&nbsp;必填项</span>
+                            <span class="red fa fa-info-circle f13" ng-show="forgot1_form.forgot_phone_pwd.$error.minlength || forgot1_form.forgot_phone_pwd.$error.maxlength">&nbsp;最少为6位</span>
+                            <div class="mt10"></div>
+                        </div>
+                    </form>
+
+                    <!-- 邮箱找回 -->
+                    <form  name="forgot2_form" novalidate>
+                    <div ng-show="tab_login==2">                      
+                        <div class="input-group">
+                            <span class="input-group-addon"><i class="fa fa-envelope fa-fw"></i></span>
+                            <input 
+                                ng-model="forgot_email"
+                                name="forgot_email" 
+                                ng-pattern="/^(\w)+(\.\w+)*@(\w)+((\.\w+)+)$/"
+                                type="text"
+                                required 
+                                class="form-control" 
+                                placeholder="邮箱">
+                        </div>
+                        <span class="red fa fa-info-circle f13" ng-show="forgot2_form.forgot_email.$dirty && forgot2_form.forgot_email.$error.required">&nbsp;必填项</span>
+                        <span class="red fa fa-info-circle f13" ng-show="forgot2_form.forgot_email.$error.pattern">&nbsp;邮箱格式不正确</span>
+
+                        <div class="input-group mt10">
+                            <input 
+                                type="number" 
+                                class="form-control" 
+                                ng-model="forgot_email_code"
+                                name="forgot_email_code" 
+                                required
+                                type="number" 
+                                class="form-control" 
+                                ng-minlength="4" 
+                                ng-maxlength="4"
+                                placeholder="获取验证码">
+                            <span class="input-group-btn">
+                                <!-- 获取验证码按钮 -->
+                                <button 
+                                    ng-click="get_email_code()"
+                                    class="btn btn-primary" 
+                                    type="button"
+                                    ng-disabled="forgot2_form.forgot_email.$invalid || !can_get_email_code">{{get_email_code_txt}}</button>
+                            </span>
+                        </div>
+                        <span class="red fa fa-info-circle f13" ng-show="forgot2_form.forgot_email_code.$error.minlength || forgot2_form.forgot_email_code.$error.maxlength">&nbsp;请输入4位验证码</span>
+
+                        <div class="mt20">
+                            <button 
+                                type="button" 
+                                class="btn btn-primary btn-block"
+                                ng-click="forgot2_submit()"
+                                ng-disabled="forgot2_form.forgot_email.$invalid || forgot2_form.forgot_email_code.$invalid || forgot2_form.forgot_email_pwd.$invalid">&nbsp;确 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 定&nbsp;</button>
+                        </div>
+
+                        <div class="input-group mt10">
+                            <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                            <input 
+                                ng-model="forgot_email_pwd" 
+                                name="forgot_email_pwd" 
+                                ng-minlength="6" 
+                                ng-maxlength="50"
+                                required
+                                type="password" 
+                                class="form-control" 
+                                placeholder="请输入密码">
+                        </div>
+                        <span class="red fa fa-info-circle f13" ng-show="forgot2_form.forgot_email_pwd.$dirty && forgot2_form.forgot_email_pwd.$error.required">&nbsp;必填项</span>
+                        <span class="red fa fa-info-circle f13" ng-show="forgot2_form.forgot_email_pwd.$error.minlength || forgot2_form.forgot_email_pwd.$error.maxlength">&nbsp;最少为6位</span>
+                        <div class="mt10"></div>                   
+                    </div>
+                </div>
+                <!-- /注册 panel -->
+            </div>
+        </div>
+    </div>
+</div>

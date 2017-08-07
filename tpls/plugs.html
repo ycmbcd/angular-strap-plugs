@@ -1,0 +1,224 @@
+<div class="container" ng-controller="plugsCtrl">
+    <div class="col-lg-11">
+        <button class="btn btn-danger pull-right btn-block" ui-sref="login"> 返 回 </button>
+        <div class="clearfix"></div>
+
+        <hr>
+        <!-- angular -->
+        绑定测试：{{ping}}
+
+        <hr>
+        <!-- moment -->
+        现在是：<h2>{{now_datetime_txt}}</h2>
+
+        <hr>
+        <!-- fontawesome -->
+        图标测试：<a href="http://mgcrea.github.io/angular-strap/" target="_blank"><i class="fa fa-language fa-2x"></i></a>
+        <hr>
+        <!-- ng-animate -->
+        <div class="btn btn-warning" ng-click="css_1=!css_1">ng-animate 动画特效</div>
+        适用于有进有出，依赖文件：angular-motion.css angular-animate.min.js ，app.js 注入['ngAnimate']
+        <div class="btn btn-success am-fade-and-slide-right" ng-show="css_1">完美加载 ng-animate</div> 
+
+        <hr>
+        <!-- animate.css -->
+        <div class="btn btn-warning" ng-click="css_2=!css_2">animate.css 动画特效</div>
+        适用于hover、单动画，或者结合：ng-class 进出。依赖文件：animate.css 
+        <div ng-class="{'lightSpeedIn':css_2,'lightSpeedOut':!css_2}" class="btn btn-success animated" ng-show="css_2">完美加载 animate.css</div>
+
+        <hr>
+        <!-- 模态框 -->
+        <button class="btn btn-primary" data-animation="am-fade-and-scale" data-template-url="modal/reg_id.html" bs-modal="modal">模态框</button>
+        
+        <hr>
+        <!-- 侧栏 -->
+        <div class="btn-group"> 
+            <button type="button" class="btn btn-default" data-template-url="aside/demo.html" data-placement="left" bs-aside="aside" >左侧边栏</button>
+            <button type="button" class="btn btn-default" data-template-url="aside/demo.html" data-placement="right" data-animation="am-slide-right" bs-aside="aside">右侧边栏</button>
+        </div>
+
+        <hr>
+        <!-- 警示框 -->
+        <button class="btn btn-danger btn-lg" bs-alert="alert_panel" data-duration="3" data-placement="top-right"><i class="fa fa-exclamation-triangle fa-fw"></i> 警示框</button>
+        <button class="btn btn-lg btn-primary" title="{{alert_panel.title}}" data-content="{{alert_panel.content}}" data-type="success" data-container="#alerts-container" data-placement="am-fade-and-slide-top" bs-alert>容器警告
+        </button>
+        <button class="btn btn-info btn-lg" ng-click="alert_service()">服务alert</button>
+        <div id="alerts-container" class="well"></div>
+        注入：['ngSanitize']
+        <hr>
+        <!-- 工具提示 -->
+        <div class="btn-group">
+            <button class="btn btn-default" bs-tooltip="tooltip_txt">上悬浮</button>
+            <button class="btn btn-default" data-type="success" bs-tooltip="tooltip_txt" placement="bottom">下悬浮</button>
+            <button class="btn btn-default" data-animation="am-fade-and-slide-top" data-type="info" bs-tooltip="tooltip_txt" placement="left">左悬浮</button>
+            <button class="btn btn-default" data-animation="am-fade-and-slide-right" data-type="info" bs-tooltip="tooltip_txt" placement="right">右悬浮</button>
+            <button class="btn btn-default" data-trigger="click" data-type="danger" bs-tooltip="tooltip_txt">点击提示</button>
+        </div>
+            
+        <hr>
+        <!-- 提示板 -->
+        <button type="button" class="btn btn-lg btn-primary" title="{{popover.title}}" data-content="{{popover.content}}" bs-popover>点击提示框
+        </button>
+
+        <hr>
+        <!-- 按钮 -->
+        <button type="button" class="btn btn-default" ng-model="button.toggle" bs-checkbox>Toggle 按钮</button>
+        <!-- 多选按钮组 -->
+        <div class="btn-group" ng-model="button.checkbox" bs-checkbox-group>
+            <label class="btn btn-default"><input type="checkbox" value="left"> 左</label>
+            <label class="btn btn-default"><input type="checkbox" value="middle"> 中</label>
+            <label class="btn btn-default"><input type="checkbox" value="right"> 右</label>
+        </div>
+        <!-- 单选按钮组 -->
+        <div class="btn-group" ng-model="button.radio" bs-radio-group>
+            <label class="btn btn-default"><input type="radio" class="btn btn-default" value="0"> 0</label>
+            <label class="btn btn-default"><input type="radio" class="btn btn-default" value="1"> 1</label>
+            <label class="btn btn-default"><input type="radio" class="btn btn-default" value="2"> 2</label>
+        </div>
+
+        <hr>
+        <!-- 下拉框 -->
+        <button type="button" class="btn btn-default" ng-model="selectedIcon" data-html="1" data-toggle="true" bs-options="icon.value as icon.label for icon in icons" bs-select>
+            <span class="caret"></span>
+        </button>
+        注入：['ngSanitize']
+
+        <hr>
+        <!-- tabs -->
+        <div bs-active-pane="tabs.activeTab" bs-tabs>
+            <div ng-repeat="tab in tabs" data-title="{{ tab.title }}" name="{{ tab.title }}" disabled="{{ tab.disabled }}" ng-bind="tab.content" bs-pane>
+            </div>
+        </div>
+
+        <hr>
+        <!-- 添加tab -->
+        <div class="btn-group" ng-model="tabs.activeTab" bs-radio-group>
+            <label class="btn btn-default" ng-repeat="tab in tabs">
+                <input type="radio" class="btn btn-default" value="{{ $index }}">第 {{ $index + 1 }} 个
+            </label>
+        </div>
+        <div class="btn btn-default" ng-click="pushTab()">Add new tab</div>
+
+        <hr>
+        <!-- 自定义tab -->
+        <div>
+            <ul class="nav nav-tabs pointer" ng-class="$navClass">
+                <li ng-class="{'active':tab_login==1}" >
+                    <a role="tab" ng-click="tab_login=1">选项卡一</a>
+                </li>
+                <li ng-class="{'active':tab_login==2}">
+                    <a role="tab" ng-click="tab_login=2">选项卡二</a>
+                </li>
+            </ul>
+            <div class="tab-content">
+                <div data-title="选项卡一" name="选项卡一" ng-show="tab_login==1">
+                    <div class="well well-sm">
+                        选项卡一的内容
+                    </div>
+                </div>
+                <div data-title="选项卡二" name="选项卡二" ng-show="tab_login==2">
+                    <div class="well well-sm">
+                        选项卡二的内容
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        <!-- 导航条 -->
+        <nav class="navbar navbar-default" role="navigation" bs-navbar>
+            <div class="navbar-header">
+            <a class="navbar-brand" >Brand</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li ng-click="set_active('1')" ng-class="{'active':active_is == 1}"><a class="pointer">Home</a></li>
+                <li ng-click="set_active('2')" ng-class="{'active':active_is == 2}"><a class="pointer">Page One</a></li>
+                <li ng-click="set_active('3')" ng-class="{'active':active_is == 3}"><a class="pointer">Page Two</a></li>
+            </ul>
+        </nav>
+
+        <hr>
+        <!-- 日期控件 -->
+        <input ng-click="import_js('moment')" placeholder="开始日期" class="date_icon" readonly="readonly" type="text" ng-flat-datepicker datepicker-config="datepickerConfig" ng-model="s_date"> - <input placeholder="结束日期" class="date_icon" readonly="readonly" type="text" ng-flat-datepicker datepicker-config="datepickerConfig" ng-model="e_date">
+        <br>
+        {{s_date}} - {{e_date}}
+        <br>
+        注入：['ngFlatDatepicker']，ctrl 设置格式。
+
+        <hr>
+        <!-- 文件导入 -->
+        <div class="panel panel-success">
+            <div class="panel-heading">文件上传（支持：.jpg .png .gif格式）需：本地环境测试</div>
+            <div class="panel-body">
+                <form name="fileForm">
+                    <div class="container">
+                        <div class="row mt10 ml5">
+                            <button 
+                                ng-click="chose_file();count_order = false;" 
+                                class="btn btn-default" 
+                                ngf-select="" 
+                                ngf-pattern="'.png,.jpg,.gif'" 
+                                name="file" 
+                                ng-model="upload_file" 
+                                ngf-multiple="false" 
+                                required="1"
+
+                                ngf-max-size="10MB">选择文件</button> 
+                            <i ng-show="fileForm.file.$error.required" class="fa fa-fw fa-star red"></i>
+                            <span>文件大小<=10MB</span>
+                            <span class="green">{{upload_file.name}}</span>
+                        </div>
+                        <div class="row mt10 ml5">
+                            <button class="btn btn-success btn-sm" ng-disabled="!fileForm.$valid || upload_store!=now_store_bar" ng-click="start_upload('demo','jpg')"><i class="fa fa-upload fa-fw"></i> 导入</button>
+                            <i class="green fa fa-fw fa-check" ng-show="upload_ok">ok</i>
+                        </div>
+                        <div class="row mt10">
+                            <div class="col-lg-10">
+                                <div class="progress" ng-show="progress_bar >=0">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" aria-valuenow="{{progress_bar}}" aria-valuemin="0" aria-valuemax="100" style="width:{{progress_bar}}%">
+                                    {{progress_bar}}%
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- container -->
+                </form> 
+            </div><!-- panel-body -->
+        </div><!-- panel -->
+
+        <hr>
+        <!-- POST测试 -->
+        <button class="btn btn-success" ng-click="post_demo()">POST测试</button>
+        <button class="btn btn-danger" ng-click="post_res=false">重置</button> 需：本地环境测试
+            <span class="am-fade" ng-show="post_res">{{ post_res }}</span>
+        <hr>
+
+        <!-- loading -->
+        <!-- 数据同步 -->
+        <ion-spinner icon="ripple" class="ss-white"></ion-spinner>
+        <!-- 写入 -->
+        <ion-spinner icon="lines" class="ss-green"></ion-spinner>
+        <!-- 读取 -->
+        <ion-spinner icon="ios-small" class="ss-blue"></ion-spinner>
+        <!-- 生成 -->
+        <ion-spinner icon="dots" class="ss-yellow"></ion-spinner>
+        <div id="shadow_txt">{{shadow_txt}}</div>
+
+        <div style="height: 500px;"></div>
+    </div>
+    <div class="col-lg-1">
+        <!-- 侧边栏 -->
+        <div class="bs-sidebar hidden-print" role="complementary" offsetUnpin="80" bs-affix>
+            <ul class="nav bs-sidenav" bs-scrollspy-list>
+                <li>
+                    <a>固定侧栏</a>
+                    <ul class="nav">
+                        <li><a>我是广告</a></li>
+                        <li><i class="fa fa-qrcode fa-4x"></i></li>
+                    </ul>
+                </li>
+            </ul> 
+        </div>
+    </div>
+    
+</div>
